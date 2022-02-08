@@ -143,10 +143,10 @@
                     };
                     
                     currentTurn++;
-                    if (currentTurn>=TURN_COUNT) {
-                        input.outerHTML = ('The word was: "' + answer + '"');
-                    } else if (greenLetters == 5) {
+                    if (greenLetters == 5) {
                         input.outerHTML = 'CORRECT!';
+                    } else if (currentTurn>=TURN_COUNT) {
+                        input.outerHTML = ('The word was: "' + answer + '"');
                     };
                 };
             });
