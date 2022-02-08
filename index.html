@@ -44,6 +44,10 @@
             .container {
                 margin:auto;
             }
+
+            * {
+                float:center;
+            }
         </style>
     </head>
     <body>
@@ -140,12 +144,9 @@
                     
                     currentTurn++;
                     if (currentTurn>=TURN_COUNT) {
-                        
-                        if (greenLetters!=5) {
-                            input.outerHTML = ('The word was: "' + answer + '"');
-                        } else {
-                            input.outerHTML = 'CORRECT!';
-                        };
+                        input.outerHTML = ('The word was: "' + answer + '"');
+                    } else if (greenLetters == 5) {
+                        input.outerHTML = 'CORRECT!';
                     };
                 };
             });
