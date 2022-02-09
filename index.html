@@ -53,13 +53,11 @@
                 animation-name:flip;
             }
             
-            #container {
+            .small {
+                font-size:20px;
             }
             
-            .vertical-align {
-              display: inline-block;
-              vertical-align: middle;
-              line-height: normal;
+            #container {
             }
             
             * {
@@ -215,14 +213,15 @@
                     
                     
                     // End of the game
+                    let resultElem = document.getElementById('result');
                     if (currentTurn>=TURN_COUNT) { // Loss
-                        input.outerHTML = 'The word was: "' + answer + '"<br>' + getResults();
+                        resultElem.innerHTML = '<span class="small">The word was: "' + answer + '"<br>' + getResults() + '</span>';
+                        resultElem.id = '';
                     };
                     if (greenLetters==5) { // Win
-                        input.outerHTML = 'CORRECT!<br>' + getResults();
+                        resultElem.innerHTML = '<span class="small">CORRECT!<br>' + getResults() + '</span>';
+                        resultElem.id = '';
                     };
-                    
-                    
                 };
             }
             input.addEventListener('keydown',enter);
