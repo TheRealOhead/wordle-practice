@@ -27,6 +27,8 @@
                 font-size:45px;
                 text-align:center;
                 
+                color:black;
+                
                 border: 1px solid gray;
                 animation-duration:1s;
                 animation-fill-mode: backwards;
@@ -68,12 +70,14 @@
                 0% {
                     transform:rotateX(0deg);
                     background-color:transparent;
+                    color:black;
                 }
                 50% {
                     transform:rotateX(90deg);
                     background-color:transparent;
+                    color:black;
                 }
-                50.1% {
+                51% {
                     transform:rotateX(-90deg);
                 }
                 100% {
@@ -112,7 +116,7 @@
     <body>
         <div id="container">
             <div id='board'></div>
-            <span id="result"><input id='input'><a href="javascript:enter({code:'Enter'})"><div class="button" ontouchstart="enter({code:'Enter'})" onclick="enter({code:'Enter'})">↳</div></a></span>
+            <span id="result"><input maxlength="5" id='input'><a href="javascript:enter({code:'Enter'})"><div class="button" ontouchstart="enter({code:'Enter'})" onclick="enter({code:'Enter'})">↳</div></a></span>
             <div id='keyboard'></div>
         </div>
         
@@ -179,7 +183,6 @@
             let answer = allowedWords[Math.floor(Math.random() * allowedWords.length)];
             
             
-            
             // What to do when the user enters a word
             let input = document.getElementById('input');
             var enter = (event)=>{
@@ -229,6 +232,30 @@
             
             
             
+            
+            
+            
+            
+            
+            // Write the contents of the input element to the board
+            var updateWord = (event)=>{
+                let word = input.value.toUpperCase();
+                let wordToWriteToBoard = input.value.padEnd(5); // If input is less than 5 letters, pad it
+                for (let i = 0; i < 5; i++) { // Go through each letter
+                    let cell = document.getElementById('letter' + i + ',' + currentTurn); // Find the right cell
+                    cell.innerHTML = word.charAt(i); // Write letter
+                };
+            }
+            input.addEventListener('input',updateWord);
+            
+            
+            
+            
+            
+            
+            
+            
+            
             // Create board
             let table = document.createElement('table');
             for (let i = 0; i < TURN_COUNT; i++) {
@@ -259,6 +286,10 @@
                 e.classList = ['key'];
                 e.id = 'key' + letter.toUpperCase();
                 e.innerHTML = letter.toUpperCase();
+                e.onpressstart = e.onclick = ()=>{ // Type letter manually
+                    input.value += letter;
+                    updateWord();
+                };
                 keyboard.appendChild(e);
                 
                 if (i == 9 || i == 18) { // Lay out like a keyboard
